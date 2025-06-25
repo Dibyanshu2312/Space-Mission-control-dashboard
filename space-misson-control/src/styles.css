@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+/* styles.css */
+
+body.dark-mode {
+  background-color: #1a1a1a;
+  color: #f9f9f9;
+}
+
+/* You can also customize any element for dark mode here. */
+body.dark-mode a {
+  color: #93c5fd;
+}

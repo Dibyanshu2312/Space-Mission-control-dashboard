@@ -1,2 +1,0 @@
-# Space-Mission-control-dashboard
-

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IssTracker } from './iss-tracker';
+import { ISSTracker } from './iss-tracker';
 
-describe('IssTracker', () => {
-  let component: IssTracker;
-  let fixture: ComponentFixture<IssTracker>;
+describe('ISSTracker', () => {
+  let component: ISSTracker;
+  let fixture: ComponentFixture<ISSTracker>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [IssTracker]
+      imports: [ISSTracker]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(IssTracker);
+    fixture = TestBed.createComponent(ISSTracker);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

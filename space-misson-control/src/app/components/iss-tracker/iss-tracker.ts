@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
   templateUrl: './iss-tracker.html',
   styleUrl: './iss-tracker.css'
 })
-export class IssTracker {
+export class ISSTracker {
 
 }

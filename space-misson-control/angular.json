@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "mission-control-center": {
+    "space-misson-control": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -56,10 +56,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "mission-control-center:build:production"
+              "buildTarget": "space-misson-control:build:production"
             },
             "development": {
-              "buildTarget": "mission-control-center:build:development"
+              "buildTarget": "space-misson-control:build:development"
             }
           },
           "defaultConfiguration": "development"
