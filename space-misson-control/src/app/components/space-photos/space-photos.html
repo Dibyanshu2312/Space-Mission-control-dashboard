@@ -1,1 +1,116 @@
-<p>space-photos works!</p>
+<div *ngIf="spacePhoto" class="w-auto mx-auto p-6 bg-gray-900 min-h-screen">
+  <!-- Header Section -->
+  <div class="text-center mb-8">
+    <h1
+      class="text-4xl md:text-5xl font-bold text-white mb-4 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent"
+    >
+      {{ spacePhoto.title }}
+    </h1>
+    <div
+      class="inline-flex items-center px-4 py-2 bg-gray-800 rounded-full border border-gray-700"
+    >
+      <svg
+        class="w-5 h-5 text-blue-400 mr-2"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+        ></path>
+      </svg>
+      <span class="text-gray-300 font-medium">{{ spacePhoto.date }}</span>
+    </div>
+  </div>
+
+  <!-- Media Section -->
+  <div class="mb-8">
+    <div class="relative group">
+      <!-- Image -->
+      <img
+        *ngIf="spacePhoto.media_type === 'image'"
+        [src]="spacePhoto.url"
+        [alt]="spacePhoto.title"
+        class="w-full rounded-2xl shadow-2xl border border-gray-700 hover:scale-105 transition-transform duration-300 ease-in-out"
+      />
+
+      <!-- Video -->
+      <div
+        *ngIf="spacePhoto.media_type === 'video'"
+        class="relative overflow-hidden rounded-2xl shadow-2xl border border-gray-700"
+      >
+        <iframe
+          [src]="spacePhoto.url"
+          class="w-full h-64 md:h-96 lg:h-[500px]"
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
+      </div>
+
+      <!-- Overlay gradient for aesthetic -->
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-gray-900/20 to-transparent rounded-2xl pointer-events-none"
+      ></div>
+    </div>
+  </div>
+
+  <!-- Description Section -->
+  <div
+    class="bg-gray-800 rounded-2xl p-6 md:p-8 border border-gray-700 shadow-xl"
+  >
+    <div class="flex items-center mb-4">
+      <div
+        class="w-1 h-8 bg-gradient-to-b from-blue-400 to-purple-500 rounded-full mr-4"
+      ></div>
+      <h3 class="text-2xl font-semibold text-white">About This Image</h3>
+    </div>
+
+    <p class="text-gray-300 leading-relaxed text-lg font-light tracking-wide">
+      {{ spacePhoto.explanation }}
+    </p>
+
+    <!-- Decorative elements -->
+    <div class="mt-6 flex items-center justify-between">
+      <div class="flex space-x-2">
+        <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+        <div
+          class="w-2 h-2 bg-purple-500 rounded-full animate-pulse"
+          style="animation-delay: 0.2s"
+        ></div>
+        <div
+          class="w-2 h-2 bg-pink-500 rounded-full animate-pulse"
+          style="animation-delay: 0.4s"
+        ></div>
+      </div>
+
+      <div class="text-sm text-gray-500 flex items-center">
+        <svg
+          class="w-4 h-4 mr-1"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          ></path>
+        </svg>
+        NASA Astronomy Picture of the Day
+      </div>
+    </div>
+  </div>
+
+  <!-- Additional styling for mobile responsiveness -->
+  <style>
+    @media (max-width: 768px) {
+      .space-photo-container {
+        padding: 1rem;
+      }
+    }
+  </style>
+</div>

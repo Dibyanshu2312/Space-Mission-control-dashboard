@@ -1,7 +1,11 @@
-<app-sidebar></app-sidebar>
+<div class="flex min-h-screen">
+  <!-- Sidebar -->
+  <div class="w-64 bg-[#0f172a] text-white">
+    <app-sidebar></app-sidebar>
+  </div>
 
-<div class="main-content">
-  <div class="p-4">
+  <!-- Main Content -->
+  <div class="flex-1 bg-[#111111] text-white">
     <router-outlet></router-outlet>
   </div>
 </div>
