@@ -22,4 +22,8 @@ export class Myservice {
   getLaunches(): Observable<any> {
     return this.http.get<any>('https://api.spacexdata.com/v3/rockets');
   }
+
+  getAllMissions(): Observable<any> {
+    return this.http.get<any>('https://api.spacexdata.com/v3/missions');
+  }
 }

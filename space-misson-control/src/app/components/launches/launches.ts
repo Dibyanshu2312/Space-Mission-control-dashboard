@@ -13,11 +13,13 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 export class Launches {
   constructor(private myservice: Myservice) {}
   rockets: any[] = [];
+  missions: any[] = [];
   loading: boolean = true;
   error: string = '';
 
   ngOnInit(): void {
     this.getRockets();
+    this.allmissions();
   }
 
   getRockets(): void {
@@ -30,6 +32,21 @@ export class Launches {
       error: (error) => {
         console.error('Error fetching rockets:', error);
         this.error = 'Failed to load rockets data';
+        this.loading = false;
+      },
+    });
+  }
+
+  allmissions(): void {
+    this.myservice.getAllMissions().subscribe({
+      next: (data) => {
+        console.log('Missions data:', data);
+        this.missions = data;
+        this.loading = false;
+      },
+      error: (error) => {
+        console.error('Error fetching missions:', error);
+        this.error = 'Failed to load missions data';
         this.loading = false;
       },
     });

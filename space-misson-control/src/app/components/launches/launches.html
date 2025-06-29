@@ -1,175 +1,256 @@
-<div class="min-h-screen bg-gray-900 p-6 text-white">
-  <!-- Page Header -->
-  <div class="text-center mb-12">
-    <h1
-      class="text-5xl font-bold bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 bg-clip-text text-transparent"
-    >
-      SpaceX Rockets
+<section class="missions">
+  <div class="p-6 min-h-screen bg-gray-900 text-white">
+    <h1 class="text-4xl font-bold text-center mb-10 text-orange-400">
+      SpaceX Missions
     </h1>
-    <p class="text-gray-400 mt-2 text-lg">
-      Explore the future of reusable rocket technology
-    </p>
-  </div>
 
-  <!-- Loader -->
-  <div *ngIf="loading" class="flex justify-center items-center h-32">
-    <div
-      class="animate-spin h-10 w-10 rounded-full border-t-2 border-b-2 border-orange-500"
-    ></div>
-  </div>
+    <!-- Loading Spinner -->
+    <div *ngIf="loading" class="flex justify-center items-center h-32">
+      <div
+        class="animate-spin h-10 w-10 border-4 border-orange-500 border-t-transparent rounded-full"
+      ></div>
+    </div>
 
-  <!-- Error -->
-  <div *ngIf="error" class="text-center text-red-400 font-semibold">
-    {{ error }}
-  </div>
+    <!-- Error -->
+    <div *ngIf="error" class="text-red-400 text-center mb-6">{{ error }}</div>
 
-  <!-- Rocket Cards -->
-  <div
-    *ngIf="!loading && rockets?.length"
-    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto"
-  >
-    <div
-      *ngFor="let rocket of rockets.slice(0, 3)"
-      class="bg-gray-800 rounded-2xl shadow-md hover:shadow-orange-400/40 border border-gray-700 hover:border-orange-500 transition-all overflow-hidden"
-    >
-      <div class="relative p-6">
-        <!-- Status Badge -->
-        <div class="absolute top-4 right-4">
-          <span
-            [ngClass]="rocket?.active ? 'bg-green-600/20 text-green-400 border-green-600/40' : 'bg-red-600/20 text-red-400 border-red-600/40'"
-            class="px-3 py-1 border rounded-full text-sm"
-          >
-            {{ rocket?.active ? 'Active' : 'Inactive' }}
-          </span>
-        </div>
-
-        <div
-          *ngIf="rocket?.first_stage?.reusable"
-          class="absolute top-2 left-2 z-10"
-        >
-          <span
-            class="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm font-medium border border-blue-500/30"
-          >
-            Reusable
-          </span>
-        </div>
-
-        <!-- Header -->
-        <div class="mb-4 pt-3">
-          <h2 class="text-2xl font-bold text-orange-400">
-            {{ rocket?.rocket_name || 'Unknown Rocket' }}
-          </h2>
-          <p class="text-sm text-gray-400">{{ rocket?.company || 'SpaceX' }}</p>
-        </div>
-
-        <!-- Stats -->
-        <div class="grid grid-cols-2 gap-4 mb-4 text-sm">
-          <div class="bg-gray-700/30 p-3 rounded text-center">
-            <div class="text-yellow-400 text-lg font-bold">
-              {{ rocket?.success_rate_pct || 0 }}%
-            </div>
-            <div class="text-gray-400">Success Rate</div>
-          </div>
-          <div class="bg-gray-700/30 p-3 rounded text-center">
-            <div class="text-green-400 text-lg font-bold">
-              ${{ (rocket?.cost_per_launch / 1e6)?.toFixed(1) || 0 }}M
-            </div>
-            <div class="text-gray-400">Cost per Launch</div>
-          </div>
-        </div>
-
-        <!-- Dimensions -->
-        <div class="text-sm mb-4">
-          <div class="flex justify-between mb-1">
-            <span class="text-gray-400">Height:</span>
-            <span
-              >{{ rocket?.height?.meters || '?' }}m / {{ rocket?.height?.feet ||
-              '?' }}ft</span
-            >
-          </div>
-          <div class="flex justify-between mb-1">
-            <span class="text-gray-400">Diameter:</span>
-            <span
-              >{{ rocket?.diameter?.meters || '?' }}m / {{
-              rocket?.diameter?.feet || '?' }}ft</span
-            >
-          </div>
-          <div class="flex justify-between mb-1">
-            <span class="text-gray-400">Mass:</span>
-            <span>{{ (rocket?.mass?.kg / 1000)?.toFixed(1) || '?' }}t</span>
-          </div>
-        </div>
-
-        <!-- Payload -->
-        <div class="mb-4">
-          <h4 class="text-sm font-semibold mb-2 text-orange-400">
-            Payload Capacity
-          </h4>
-          <div
-            *ngFor="let payload of rocket?.payload_weights || []"
-            class="flex justify-between text-sm"
-          >
-            <span class="text-gray-400">{{ payload?.name }}:</span>
-            <span class="text-orange-300"
-              >{{ (payload?.kg / 1000)?.toFixed(1) }}t</span
-            >
-          </div>
-        </div>
-
-        <!-- Engines -->
-        <div class="mb-4">
-          <h4 class="text-sm font-semibold mb-2 text-red-400">Engines</h4>
-          <div class="grid grid-cols-2 text-sm gap-2">
-            <div>
-              <span class="text-gray-400">Count:</span> {{
-              rocket?.engines?.number }}
-            </div>
-            <div>
-              <span class="text-gray-400">Type:</span> {{ rocket?.engines?.type
-              }}
-            </div>
-            <div class="col-span-2">
-              <span class="text-gray-400">Fuel:</span> {{
-              rocket?.engines?.propellant_1 }} + {{
-              rocket?.engines?.propellant_2 }}
-            </div>
-          </div>
-        </div>
+    <!-- Cards Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div
+        *ngFor="let mission of missions"
+        class="bg-gray-800 p-6 rounded-2xl shadow-md border border-gray-700 hover:shadow-orange-500/20 transition-all duration-300"
+      >
+        <!-- Title -->
+        <h2 class="text-xl font-semibold text-orange-300 mb-2">
+          {{ mission.mission_name }}
+        </h2>
 
         <!-- Description -->
-        <p class="text-gray-300 text-sm mb-4">
-          {{ rocket?.description || 'No description available.' }}
+        <p class="text-sm text-gray-300 mb-4">
+          {{ mission.description || 'No description available.' }}
         </p>
 
-        <!-- Footer -->
-        <div
-          class="flex justify-between text-xs text-gray-500 mt-4 border-t border-gray-700 pt-2"
-        >
-          <span>Stages: {{ rocket?.stages }}</span>
-          <span>Boosters: {{ rocket?.boosters }}</span>
-          <span>{{ rocket?.country }}</span>
+        <!-- Manufacturers -->
+        <div class="mb-2">
+          <span class="text-gray-400 text-xs">Manufacturers:</span>
+          <div class="text-sm text-white">
+            {{ mission.manufacturers.join(', ') || 'N/A' }}
+          </div>
         </div>
 
-        <!-- Buttons -->
-        <div class="mt-4 flex gap-2">
+        <!-- Payload IDs -->
+        <div class="mb-4">
+          <span class="text-gray-400 text-xs">Payload IDs:</span>
+          <div class="text-sm text-white">
+            {{ mission.payload_ids.join(', ') || 'N/A' }}
+          </div>
+        </div>
+
+        <!-- Links -->
+        <div class="flex gap-3 flex-wrap mt-4">
           <a
-            *ngIf="rocket?.wikipedia"
-            [href]="rocket.wikipedia"
+            *ngIf="mission.wikipedia"
+            [href]="mission.wikipedia"
             target="_blank"
-            class="flex-1 text-center bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition"
+            class="text-blue-400 hover:underline text-sm"
+            >Wikipedia</a
           >
-            Learn More
-          </a>
+          <a
+            *ngIf="mission.website"
+            [href]="mission.website"
+            target="_blank"
+            class="text-green-400 hover:underline text-sm"
+            >Website</a
+          >
+          <a
+            *ngIf="mission.twitter"
+            [href]="mission.twitter"
+            target="_blank"
+            class="text-sky-400 hover:underline text-sm"
+            >Twitter</a
+          >
         </div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- No Data -->
-  <div
-    *ngIf="!loading && !rockets?.length"
-    class="text-center text-gray-400 mt-10"
-  >
-    No rocket data found.
+<section class="rockets">
+  <div class="min-h-screen bg-gray-900 p-6 text-white">
+    <!-- Page Header -->
+    <div class="text-center mb-12">
+      <h1
+        class="text-5xl font-bold bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 bg-clip-text text-transparent"
+      >
+        SpaceX Rockets
+      </h1>
+      <p class="text-gray-400 mt-2 text-lg">
+        Explore the future of reusable rocket technology
+      </p>
+    </div>
+
+    <!-- Loader -->
+    <div *ngIf="loading" class="flex justify-center items-center h-32">
+      <div
+        class="animate-spin h-10 w-10 rounded-full border-t-2 border-b-2 border-orange-500"
+      ></div>
+    </div>
+
+    <!-- Error -->
+    <div *ngIf="error" class="text-center text-red-400 font-semibold">
+      {{ error }}
+    </div>
+
+    <!-- Rocket Cards -->
+    <div
+      *ngIf="!loading && rockets?.length"
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto"
+    >
+      <div
+        *ngFor="let rocket of rockets.slice(0, 3)"
+        class="bg-gray-800 rounded-2xl shadow-md hover:shadow-orange-400/40 border border-gray-700 hover:border-orange-500 transition-all overflow-hidden"
+      >
+        <div class="relative p-6">
+          <!-- Status Badge -->
+          <div class="absolute top-4 right-4">
+            <span
+              [ngClass]="rocket?.active ? 'bg-green-600/20 text-green-400 border-green-600/40' : 'bg-red-600/20 text-red-400 border-red-600/40'"
+              class="px-3 py-1 border rounded-full text-sm"
+            >
+              {{ rocket?.active ? 'Active' : 'Inactive' }}
+            </span>
+          </div>
+
+          <div
+            *ngIf="rocket?.first_stage?.reusable"
+            class="absolute top-2 left-2 z-10"
+          >
+            <span
+              class="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm font-medium border border-blue-500/30"
+            >
+              Reusable
+            </span>
+          </div>
+
+          <!-- Header -->
+          <div class="mb-4 pt-3">
+            <h2 class="text-2xl font-bold text-orange-400">
+              {{ rocket?.rocket_name || 'Unknown Rocket' }}
+            </h2>
+            <p class="text-sm text-gray-400">
+              {{ rocket?.company || 'SpaceX' }}
+            </p>
+          </div>
+
+          <!-- Stats -->
+          <div class="grid grid-cols-2 gap-4 mb-4 text-sm">
+            <div class="bg-gray-700/30 p-3 rounded text-center">
+              <div class="text-yellow-400 text-lg font-bold">
+                {{ rocket?.success_rate_pct || 0 }}%
+              </div>
+              <div class="text-gray-400">Success Rate</div>
+            </div>
+            <div class="bg-gray-700/30 p-3 rounded text-center">
+              <div class="text-green-400 text-lg font-bold">
+                ${{ (rocket?.cost_per_launch / 1e6)?.toFixed(1) || 0 }}M
+              </div>
+              <div class="text-gray-400">Cost per Launch</div>
+            </div>
+          </div>
+
+          <!-- Dimensions -->
+          <div class="text-sm mb-4">
+            <div class="flex justify-between mb-1">
+              <span class="text-gray-400">Height:</span>
+              <span
+                >{{ rocket?.height?.meters || '?' }}m / {{ rocket?.height?.feet
+                || '?' }}ft</span
+              >
+            </div>
+            <div class="flex justify-between mb-1">
+              <span class="text-gray-400">Diameter:</span>
+              <span
+                >{{ rocket?.diameter?.meters || '?' }}m / {{
+                rocket?.diameter?.feet || '?' }}ft</span
+              >
+            </div>
+            <div class="flex justify-between mb-1">
+              <span class="text-gray-400">Mass:</span>
+              <span>{{ (rocket?.mass?.kg / 1000)?.toFixed(1) || '?' }}t</span>
+            </div>
+          </div>
+
+          <!-- Payload -->
+          <div class="mb-4">
+            <h4 class="text-sm font-semibold mb-2 text-orange-400">
+              Payload Capacity
+            </h4>
+            <div
+              *ngFor="let payload of rocket?.payload_weights || []"
+              class="flex justify-between text-sm"
+            >
+              <span class="text-gray-400">{{ payload?.name }}:</span>
+              <span class="text-orange-300"
+                >{{ (payload?.kg / 1000)?.toFixed(1) }}t</span
+              >
+            </div>
+          </div>
+
+          <!-- Engines -->
+          <div class="mb-4">
+            <h4 class="text-sm font-semibold mb-2 text-red-400">Engines</h4>
+            <div class="grid grid-cols-2 text-sm gap-2">
+              <div>
+                <span class="text-gray-400">Count:</span> {{
+                rocket?.engines?.number }}
+              </div>
+              <div>
+                <span class="text-gray-400">Type:</span> {{
+                rocket?.engines?.type }}
+              </div>
+              <div class="col-span-2">
+                <span class="text-gray-400">Fuel:</span> {{
+                rocket?.engines?.propellant_1 }} + {{
+                rocket?.engines?.propellant_2 }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <p class="text-gray-300 text-sm mb-4">
+            {{ rocket?.description || 'No description available.' }}
+          </p>
+
+          <!-- Footer -->
+          <div
+            class="flex justify-between text-xs text-gray-500 mt-4 border-t border-gray-700 pt-2"
+          >
+            <span>Stages: {{ rocket?.stages }}</span>
+            <span>Boosters: {{ rocket?.boosters }}</span>
+            <span>{{ rocket?.country }}</span>
+          </div>
+
+          <!-- Buttons -->
+          <div class="mt-4 flex gap-2">
+            <a
+              *ngIf="rocket?.wikipedia"
+              [href]="rocket.wikipedia"
+              target="_blank"
+              class="flex-1 text-center bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition"
+            >
+              Learn More
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- No Data -->
+    <div
+      *ngIf="!loading && !rockets?.length"
+      class="text-center text-gray-400 mt-10"
+    >
+      No rocket data found.
+    </div>
   </div>
-</div>
+</section>
