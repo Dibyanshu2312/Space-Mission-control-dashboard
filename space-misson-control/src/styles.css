@@ -2,7 +2,7 @@
 @import "tailwindcss";
 /* styles.css */
 
-body.dark-mode {
+body {
   background-color: #1a1a1a;
   color: #f9f9f9;
 }

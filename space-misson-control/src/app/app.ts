@@ -10,15 +10,5 @@ import { Sidebar } from './components/sidebar/sidebar';
 })
 export class App {
   protected title = 'space-misson-control';
-  isDark = false;
-
-  toggleDarkMode() {
-    this.isDark = !this.isDark;
-
-    if (this.isDark) {
-      document.body.classList.add('dark-mode');
-    } else {
-      document.body.classList.remove('dark-mode');
-    }
-  }
+  isDark = true;
 }
