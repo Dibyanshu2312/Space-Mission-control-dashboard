@@ -11,12 +11,13 @@ export class Myservice {
   }
   constructor(private http: HttpClient) {}
   spaciphotosurl = 'https://api.nasa.gov/planetary/apod';
-  spacephotokey = 'Y66V9q2b5PjLTBPsBBPsCzxiayJGDMcqFsUzDN7N';
+  apikey = 'Y66V9q2b5PjLTBPsBBPsCzxiayJGDMcqFsUzDN7N';
+  apikey2 = 'yWFbvKBOc6k6voYQKChwX8rfIqZ0lV87h6gMYeOc';
+  marsmissionsurl =
+    'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=';
 
   getApod(): Observable<any> {
-    return this.http.get<any>(
-      `${this.spaciphotosurl}?api_key=${this.spacephotokey}`
-    );
+    return this.http.get<any>(`${this.spaciphotosurl}?api_key=${this.apikey}`);
   }
 
   getLaunches(): Observable<any> {
@@ -25,5 +26,11 @@ export class Myservice {
 
   getAllMissions(): Observable<any> {
     return this.http.get<any>('https://api.spacexdata.com/v3/missions');
+  }
+
+  getMarsPhotos(sol: number = 1000) {
+    return this.http.get<any>(
+      'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&page=2&api_key=Y66V9q2b5PjLTBPsBBPsCzxiayJGDMcqFsUzDN7N'
+    );
   }
 }
