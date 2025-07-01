@@ -9,7 +9,7 @@ import { NotFoundError } from '@angular/core/primitives/di';
 export const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: Dashboard },
-  { path: 'Iss-tracker', component: ISSTracker },
+  { path: 'Asteroid-Tracker', component: ISSTracker },
   { path: 'launches', component: Launches },
   { path: 'mars-mission', component: MarsMissions },
   { path: 'space-photos', component: SpacePhotos },

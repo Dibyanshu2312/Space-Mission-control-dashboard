@@ -1,5 +1,7 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* Simple layout example, adjust as needed */
+:host {
+}
+
+app-sidebar {
+  flex: 0 0 250px; /* Fixed sidebar width */
 }

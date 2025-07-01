@@ -1,1 +1,107 @@
-<p>iss-tracker works!</p>
+<!-- Outer Fullscreen Container -->
+<div class="min-h-screen bg-gray-900 text-gray-100 p-6 flex flex-col">
+  <!-- Page Title -->
+  <h1 class="text-2xl font-bold mb-6 text-center">
+    Search Near-Earth Asteroids
+  </h1>
+
+  <!-- Centered Form Box -->
+  <div
+    class="max-w-4xl mx-auto w-full bg-gray-800 border border-gray-700 rounded-lg shadow-lg p-6 mb-8"
+  >
+    <!-- Form -->
+    <form (ngSubmit)="searchAsteroids()" class="grid gap-4 md:grid-cols-3">
+      <div>
+        <label class="block text-sm mb-1">Start Date</label>
+        <input
+          type="date"
+          [(ngModel)]="startDate"
+          name="startDate"
+          required
+          class="w-full p-2 rounded bg-gray-900 text-white border border-gray-600"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm mb-1">End Date</label>
+        <input
+          type="date"
+          [(ngModel)]="endDate"
+          name="endDate"
+          required
+          class="w-full p-2 rounded bg-gray-900 text-white border border-gray-600"
+        />
+      </div>
+
+      <div class="flex items-end">
+        <button
+          type="submit"
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded"
+        >
+          Search
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Messages -->
+  <div *ngIf="loading" class="text-blue-300 text-center mb-4">
+    🔄 Loading asteroids...
+  </div>
+  <div *ngIf="error" class="text-red-400 text-center mb-4">🚫 {{ error }}</div>
+
+  <!-- No Results -->
+  <div
+    *ngIf="!loading && !error && (!asteroidsByDate || (asteroidsByDate | keyvalue).length === 0)"
+    class="text-gray-400 text-center"
+  >
+    No asteroids found for the selected date range.
+  </div>
+
+  <!-- Asteroid Results -->
+  <div *ngFor="let entry of asteroidsByDate | keyvalue" class="mt-6">
+    <h2 class="text-xl font-semibold my-4 border-b border-gray-600 pb-1">
+      📅 {{ entry.key }}
+    </h2>
+
+    <div
+      class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+    >
+      <div
+        *ngFor="let asteroid of entry.value"
+        class="p-4 bg-gray-800 border border-gray-700 rounded-lg shadow hover:shadow-lg transition"
+      >
+        <h3 class="text-lg font-bold mb-2">{{ asteroid.name }}</h3>
+        <p>
+          <strong>Hazardous:</strong>
+          <span
+            [ngClass]="{
+                  'text-red-500 font-bold': asteroid.is_potentially_hazardous_asteroid,
+                  'text-green-400': !asteroid.is_potentially_hazardous_asteroid
+                }"
+          >
+            {{ asteroid.is_potentially_hazardous_asteroid ? 'Yes' : 'No' }}
+          </span>
+        </p>
+        <p>
+          <strong>Miss Distance:</strong>
+          {{ asteroid.close_approach_data[0]?.miss_distance?.kilometers |
+          number:'1.0-0' }} km
+        </p>
+        <p>
+          <strong>Speed:</strong>
+          {{
+          asteroid.close_approach_data[0]?.relative_velocity?.kilometers_per_hour
+          | number:'1.0-0' }} km/h
+        </p>
+        <p>
+          <strong>Size:</strong>
+          {{ asteroid.estimated_diameter.kilometers.estimated_diameter_min |
+          number:'1.2-2' }} - {{
+          asteroid.estimated_diameter.kilometers.estimated_diameter_max |
+          number:'1.2-2' }} km
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

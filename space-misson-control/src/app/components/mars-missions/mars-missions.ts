@@ -32,16 +32,5 @@ export class MarsMissions {
     });
   }
 
-  toggleRoverInfo() {
-    this.showRoverInfo = true;
-    this.showPhotos = false;
-    if (this.photos.length === 0) this.fetchData();
-  }
-
-  togglePhotos() {
-    this.showPhotos = true;
-    this.showRoverInfo = false;
-    if (this.photos.length === 0) this.fetchData();
-  }
   selectedImage: string | null = null;
 }
