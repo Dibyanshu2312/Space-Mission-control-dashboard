@@ -1,0 +1,28 @@
+<div class="bg-gray-900 text-white p-6 rounded-xl shadow-lg">
+  <h2 class="text-xl font-semibold mb-4">🌡️ Mars Weather (InSight)</h2>
+
+  <div *ngIf="loading">Loading...</div>
+  <div *ngIf="error" class="text-red-400">{{ error }}</div>
+
+  <div *ngIf="!loading && solKeys.length">
+    <div *ngFor="let sol of solKeys.slice(-3)" class="mb-4">
+      <h3 class="text-lg font-semibold text-orange-400">Sol {{ sol }}</h3>
+      <p>
+        <span class="font-semibold">Date:</span> {{ weatherData[sol].First_UTC |
+        date:'mediumDate' }}
+      </p>
+      <p>
+        <span class="font-semibold">Min Temp:</span> {{ weatherData[sol].AT?.mn
+        }} °C
+      </p>
+      <p>
+        <span class="font-semibold">Max Temp:</span> {{ weatherData[sol].AT?.mx
+        }} °C
+      </p>
+      <p>
+        <span class="font-semibold">Wind Speed:</span> {{
+        weatherData[sol].HWS?.av }} m/s
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="bg-gray-900 text-white p-6 rounded-xl shadow-lg">
+  <h2 class="text-xl font-semibold mb-4">🚀 Latest Launch</h2>
+
+  <div *ngIf="loading">Loading...</div>
+
+  <div *ngIf="!loading && launch">
+    <div class="flex gap-4 items-start">
+      <img
+        *ngIf="launch.links?.patch?.large"
+        [src]="launch.links.patch.large"
+        alt="Mission Patch"
+        class="w-24 h-24 object-contain"
+      />
+
+      <div>
+        <p><span class="font-semibold">Mission:</span> {{ launch.name }}</p>
+        <p><span class="font-semibold">Rocket:</span> {{ rocketName }}</p>
+        <p>
+          <span class="font-semibold">Date:</span> {{ launch.date_utc |
+          date:'medium' }}
+        </p>
+        <p>
+          <span class="font-semibold">Status:</span>
+          <span
+            [class.text-green-400]="launch.success"
+            [class.text-red-400]="!launch.success"
+          >
+            {{ launch.success ? 'Success ✅' : 'Failed ❌' }}
+          </span>
+        </p>
+        <p>
+          <span class="font-semibold">Crew Members:</span> {{
+          launch.crew?.length || 0 }}
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-4 space-x-4">
+      <a
+        *ngIf="launch.links?.webcast"
+        [href]="launch.links.webcast"
+        target="_blank"
+        class="text-blue-400 underline"
+      >
+        📺 Watch Launch
+      </a>
+
+      <a
+        *ngIf="launch.links?.wikipedia"
+        [href]="launch.links.wikipedia"
+        target="_blank"
+        class="text-yellow-400 underline"
+      >
+        📚 Wikipedia
+      </a>
+    </div>
+  </div>
+</div>

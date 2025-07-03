@@ -1,1 +1,45 @@
-<h1 style="color: white">hello</h1>
+<div
+  class="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white"
+>
+  <!-- Hero Heading -->
+  <header class="text-center py-10">
+    <h1 class="text-4xl md:text-5xl font-bold text-blue-400 animate-pulse">
+      🚀 Space Mission Control Center
+    </h1>
+    <p class="mt-2 text-gray-300 text-lg max-w-2xl mx-auto">
+      Monitor the latest launches, explore Mars weather, track solar bodies and
+      dive into mission data from SpaceX & NASA APIs.
+    </p>
+  </header>
+
+  <!-- Main Grid -->
+  <div class="grid lg:grid-cols-2 gap-6 px-6 pb-10">
+    <!-- Card: Latest Launch -->
+    <div
+      class="bg-gray-900 rounded-2xl shadow-lg hover:shadow-blue-500/30 hover:scale-[1.01] transition-all duration-300"
+    >
+      <app-latest-launch></app-latest-launch>
+    </div>
+
+    <!-- Card: Mission Detail -->
+    <div
+      class="bg-gray-900 rounded-2xl shadow-lg hover:shadow-purple-500/30 hover:scale-[1.01] transition-all duration-300"
+    >
+      <app-mission-detail></app-mission-detail>
+    </div>
+
+    <!-- Card: Mars Weather -->
+    <div
+      class="bg-gray-900 rounded-2xl shadow-lg hover:shadow-red-500/30 hover:scale-[1.01] transition-all duration-300"
+    >
+      <app-mars-weather></app-mars-weather>
+    </div>
+
+    <!-- Card: Solar System Body -->
+    <div
+      class="bg-gray-900 rounded-2xl shadow-lg hover:shadow-yellow-500/30 hover:scale-[1.01] transition-all duration-300"
+    >
+      <app-solar-body></app-solar-body>
+    </div>
+  </div>
+</div>

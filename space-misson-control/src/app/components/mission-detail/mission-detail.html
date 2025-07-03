@@ -1,0 +1,53 @@
+<div class="bg-gray-900 text-white p-6 rounded-xl shadow-lg">
+  <h2 class="text-xl font-semibold mb-4">🛰️ Select a SpaceX Mission</h2>
+
+  <form (ngSubmit)="fetchMission()" class="flex gap-2 mb-4 items-center">
+    <select
+      [(ngModel)]="selectedMission"
+      name="selectedMission"
+      class="p-2 rounded bg-gray-800 text-white w-full"
+    >
+      <option value="" disabled selected>Select a mission</option>
+      <option *ngFor="let mission of missionList" [value]="mission">
+        {{ mission }}
+      </option>
+    </select>
+
+    <button
+      type="submit"
+      class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700"
+      [disabled]="!selectedMission"
+    >
+      Search
+    </button>
+  </form>
+
+  <div *ngIf="loading">Loading...</div>
+  <div *ngIf="errorMsg" class="text-red-400">{{ errorMsg }}</div>
+
+  <div *ngIf="mission" class="mt-4">
+    <p><span class="font-semibold">Name:</span> {{ mission.name }}</p>
+    <p>
+      <span class="font-semibold">Date:</span> {{ mission.date_utc |
+      date:'medium' }}
+    </p>
+    <p>
+      <span class="font-semibold">Flight Number:</span> {{ mission.flight_number
+      }}
+    </p>
+
+    <p *ngIf="mission.links?.wikipedia">
+      <a
+        [href]="mission.links.wikipedia"
+        target="_blank"
+        class="text-yellow-400 underline"
+      >
+        📚 Wikipedia
+      </a>
+    </p>
+
+    <p *ngIf="mission.details">
+      <span class="font-semibold">Details:</span> {{ mission.details }}
+    </p>
+  </div>
+</div>
