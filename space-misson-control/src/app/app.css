@@ -1,7 +1,3 @@
-/* Simple layout example, adjust as needed */
-:host {
-}
-
 app-sidebar {
   flex: 0 0 250px; /* Fixed sidebar width */
 }
